@@ -181,15 +181,14 @@ Object.defineProperty(exports, "__esModule", ({ value: true }));
 exports.http_get = void 0;
 const http = __importStar(__nccwpck_require__(6255));
 const core = __importStar(__nccwpck_require__(2186));
-const url_helper_1 = __nccwpck_require__(9437);
 const client = new http.HttpClient('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36');
 function http_get(url) {
     return __awaiter(this, void 0, void 0, function* () {
         const headers = {
-            [':authority']: 'amp-api.music.apple.com',
-            [':method']: 'GET',
-            [':path']: `/v1/catalog/cn/playlists/${(0, url_helper_1.get_id)(url)}?art%5Burl%5D=f&extend=editorialArtwork%2CeditorialVideo%2Coffers%2CtrackCount&fields%5Balbums%5D=name%2Cartwork%2CplayParams&fields%5Bapple-curators%5D=name%2Curl&fields%5Bartists%5D=name%2Cartwork&fields%5Bcurators%5D=name%2Curl&fields%5Bsongs%5D=name%2CartistName%2CcuratorName%2CcomposerName%2Cartwork%2CplayParams%2CcontentRating%2CalbumName%2Curl%2CdurationInMillis%2CaudioTraits%2CextendedAssetUrls&format%5Bresources%5D=map&include=tracks%2Ccurator&include%5Bmusic-videos%5D=artists&include%5Bsongs%5D=artists&l=zh-Hans-CN&limit%5Btracks%5D=300&limit%5Bview.contributors%5D=15&limit%5Bview.featured-artists%5D=15&limit%5Bview.more-by-curator%5D=15&omit%5Bresource%5D=autos&platform=web&views=contributors%2Cfeatured-artists%2Cmore-by-curator`,
-            [':scheme']: 'https',
+            //[':authority']: 'amp-api.music.apple.com',
+            //[':method']: 'GET',
+            //[':path']: `/v1/catalog/cn/playlists/${get_id(url)}?art%5Burl%5D=f&extend=editorialArtwork%2CeditorialVideo%2Coffers%2CtrackCount&fields%5Balbums%5D=name%2Cartwork%2CplayParams&fields%5Bapple-curators%5D=name%2Curl&fields%5Bartists%5D=name%2Cartwork&fields%5Bcurators%5D=name%2Curl&fields%5Bsongs%5D=name%2CartistName%2CcuratorName%2CcomposerName%2Cartwork%2CplayParams%2CcontentRating%2CalbumName%2Curl%2CdurationInMillis%2CaudioTraits%2CextendedAssetUrls&format%5Bresources%5D=map&include=tracks%2Ccurator&include%5Bmusic-videos%5D=artists&include%5Bsongs%5D=artists&l=zh-Hans-CN&limit%5Btracks%5D=300&limit%5Bview.contributors%5D=15&limit%5Bview.featured-artists%5D=15&limit%5Bview.more-by-curator%5D=15&omit%5Bresource%5D=autos&platform=web&views=contributors%2Cfeatured-artists%2Cmore-by-curator`,
+            //[':scheme']: 'https',
             ['accept']: '*/*',
             ['accept-encoding']: 'gzip, deflate, br',
             ['accept-language']: 'zh-CN,zh;q=0.9',
