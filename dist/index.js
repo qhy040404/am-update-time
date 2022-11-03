@@ -207,9 +207,13 @@ function http_get(url) {
         };
         const res = yield client.get(url, headers);
         if (res.message.statusCode == 200) {
-            const body = yield res.readBody();
-            core.info(body);
-            return body;
+            let r = res.message;
+            let data = '';
+            r.on('data', (chunk) => {
+                data += chunk;
+            });
+            r.on('end', () => { });
+            return data;
         }
         else {
             core.debug(yield res.readBody());

@@ -32,9 +32,13 @@ export async function http_get(url: string): Promise<string> {
         headers
     )
     if (res.message.statusCode == 200) {
-        const body = await res.readBody()
-        core.info(body)
-        return body
+        let r = res.message
+        let data = ''
+        r.on('data',(chunk:string):void => {
+            data+=chunk
+        })
+        r.on('end', ():void =>{})
+        return data
     } else {
         core.debug(await res.readBody())
         core.setFailed("Didn't get a 200 status code")
