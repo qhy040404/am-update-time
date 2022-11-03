@@ -1,0 +1,17 @@
+name: 'Apple Music Update Time'
+description: "A GitHub action to update Apple Music last modified time in profile"
+author: 'qhy040404'
+
+inputs:
+  playlist:
+    description: 'playlist url'
+    required: true
+    default: ''
+  keyword:
+    description: 'Replace content in your profile'
+    required: true
+    default: ''
+
+runs:
+  using: node16
+  main: dist/index.js
