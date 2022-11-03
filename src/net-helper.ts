@@ -32,7 +32,9 @@ export async function http_get(url: string): Promise<string> {
         headers
     )
     if (res.message.statusCode == 200) {
-        return await res.readBody()
+        const body = await res.readBody()
+        core.info(body)
+        return body
     } else {
         core.debug(await res.readBody())
         core.setFailed("Didn't get a 200 status code")
