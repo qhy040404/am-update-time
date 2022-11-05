@@ -2,7 +2,7 @@ import * as core from "@actions/core"
 import * as fs from 'fs-extra'
 import {find_file, replaceTimes} from "./file-helper";
 import {http_get} from "./net-helper";
-import {get_id} from "./url-helper";
+import {generate_status_url, get_id} from "./url-helper";
 
 async function run() {
     core.info('Importing inputs')
@@ -18,7 +18,7 @@ async function run() {
     const readme = await find_file('README.md')
     let readme_data:string = fs.readFileSync(readme,'utf8')
 
-    const remote_data = JSON.parse(await http_get(playlist_url))
+    const remote_data = JSON.parse(await http_get(generate_status_url(playlist_url)))
     const playlists = remote_data.resources.playlists
     const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${get_id(playlist_url)}`, 'mList'))
     const orig_time:string = m_plists.mList.attributes.lastModifiedDate

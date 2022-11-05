@@ -115,7 +115,7 @@ function run() {
         }
         const readme = yield (0, file_helper_1.find_file)('README.md');
         let readme_data = fs.readFileSync(readme, 'utf8');
-        const remote_data = JSON.parse(yield (0, net_helper_1.http_get)(playlist_url));
+        const remote_data = JSON.parse(yield (0, net_helper_1.http_get)((0, url_helper_1.generate_status_url)(playlist_url)));
         const playlists = remote_data.resources.playlists;
         const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${(0, url_helper_1.get_id)(playlist_url)}`, 'mList'));
         const orig_time = m_plists.mList.attributes.lastModifiedDate;
@@ -233,12 +233,16 @@ exports.http_get = http_get;
 "use strict";
 
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.get_id = void 0;
+exports.generate_status_url = exports.get_id = void 0;
 function get_id(orig) {
     const splits = orig.split("/");
     return splits[splits.length - 1];
 }
 exports.get_id = get_id;
+function generate_status_url(url) {
+    return `https://amp-api.music.apple.com/v1/catalog/cn/playlists/${get_id(url)}?art[url]=f&extend=editorialArtwork,editorialVideo,offers,trackCount&fields[albums]=name,artwork,playParams&fields[apple-curators]=name,url&fields[artists]=name,artwork&fields[curators]=name,url&fields[songs]=name,artistName,curatorName,composerName,artwork,playParams,contentRating,albumName,url,durationInMillis,audioTraits,extendedAssetUrls&format[resources]=map&include=tracks,curator&include[music-videos]=artists&include[songs]=artists&l=zh-Hans-CN&limit[tracks]=300&limit[view.contributors]=15&limit[view.featured-artists]=15&limit[view.more-by-curator]=15&omit[resource]=autos&platform=web&views=contributors,featured-artists,more-by-curator`;
+}
+exports.generate_status_url = generate_status_url;
 
 
 /***/ }),
