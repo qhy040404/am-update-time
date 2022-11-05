@@ -23,7 +23,7 @@ jobs:
           set -eu
           git add README.md
           if ! git diff --cached --quiet; then
-              git commit -S -m "Update Profile(Steam)"
+              git commit -m "Update Profile(Steam)"
           fi
       - name: Push changes
         uses: ad-m/github-push-action@v0.6.0
