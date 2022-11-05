@@ -7,7 +7,7 @@ import {generate_status_url, get_id} from "./url-helper";
 async function run() {
     core.info('Importing inputs')
     const playlist_url = core.getInput('playlist', {required: true})
-    const delimiter = core.getInput('keyword',{required:true})
+    const delimiter = core.getInput('keyword', {required: true})
 
     core.debug(`${playlist_url}\n${delimiter}`)
 
@@ -16,16 +16,16 @@ async function run() {
     }
 
     const readme = await find_file('README.md')
-    let readme_data:string = fs.readFileSync(readme,'utf8')
+    let readme_data: string = fs.readFileSync(readme, 'utf8')
 
     let remote = await http_get(generate_status_url(playlist_url))
     core.info(remote)
     const remote_data = JSON.parse(remote)
     const playlists = remote_data.resources.playlists
     const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${get_id(playlist_url)}`, 'mList'))
-    const orig_time:string = m_plists.mList.attributes.lastModifiedDate
+    const orig_time: string = m_plists.mList.attributes.lastModifiedDate
     core.info(`Original time from remote: ${orig_time}`)
-    const time = replaceTimes(orig_time.split("T")[0], "-","/",2)
+    const time = replaceTimes(orig_time.split("T")[0], "-", "/", 2)
     core.info(`Remote time: ${time}`)
 
     const pre_time = readme_data.split(delimiter)[1].split("\n")[0].trim()

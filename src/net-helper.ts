@@ -18,13 +18,6 @@ export async function http_get(url: string): Promise<string> {
         headers
     )
     if (res.message.statusCode == 200) {
-        /*let r = res.message
-        let data = ''
-        r.on('data',(chunk:string):void => {
-            data+=chunk
-        })
-        r.on('end', ():void =>{})
-        return data*/
         return res.readBody()
     } else {
         core.debug(await res.readBody())

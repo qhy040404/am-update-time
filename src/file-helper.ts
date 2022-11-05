@@ -6,10 +6,10 @@ export async function find_file(name: string): Promise<string> {
     return files[0]
 }
 
-export function replaceTimes(orig:string, oldVal:string, newVal:string, times:number):string {
-    let returnVal
-    for (let i = 0; i<times; i++) {
-        returnVal = orig.replace(oldVal,newVal)
+export function replaceTimes(orig: string, oldVal: string, newVal: string, times: number): string {
+    let returnVal = orig
+    for (let i = 0; i < times; i++) {
+        returnVal = returnVal.replace(oldVal, newVal)
     }
     return returnVal
 }
