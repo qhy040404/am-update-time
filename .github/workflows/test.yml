@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - uses: qhy040404/am-update-time-old-ts@master
+      - uses: qhy040404/am-update-time@master
         with:
           playlist: 'https://music.apple.com/cn/playlist/just-my-favorite/pl.u-8aAVZglHWya2xM'
           keyword: 'Last Update: '
