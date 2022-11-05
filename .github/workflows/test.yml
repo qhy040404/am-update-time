@@ -14,3 +14,16 @@ jobs:
           keyword: 'Last Update: '
       - run: |
           cat README.md
+      - name: Commit changes
+        shell: sh
+        run: |
+          set -eu
+          git add README.md
+          if ! git diff --cached --quiet; then
+              git commit -S -m "Update Profile(Steam)"
+          fi
+      - name: Push changes
+        uses: ad-m/github-push-action@v0.6.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ github.ref }}
