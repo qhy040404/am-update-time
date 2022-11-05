@@ -43,11 +43,9 @@ exports.push = void 0;
 const exec = __importStar(__nccwpck_require__(1514));
 function push(token, branch) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec('ls');
-        /*await exec.exec('git commit -am "Update playlist"')
+        yield exec.exec('git commit -am "Update playlist"');
         // @ts-ignore
-        await exec.exec(`git push ${process.env.GITHUB_SERVER_URL.trim().split("//")[0]}//${process.env.GITHUB_ACTOR}:${token}@${process.env.GITHUB_SERVER_URL.trim().split("//")[1]}/${process.env.GITHUB_REPOSITORY}.git HEAD:${branch}`)
-    */ 
+        yield exec.exec(`git push ${process.env.GITHUB_SERVER_URL.trim().split("//")[0]}//${process.env.GITHUB_ACTOR}:${token}@${process.env.GITHUB_SERVER_URL.trim().split("//")[1]}/${process.env.GITHUB_REPOSITORY}.git HEAD:${branch}`);
     });
 }
 exports.push = push;
