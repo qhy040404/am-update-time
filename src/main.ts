@@ -19,7 +19,7 @@ async function run() {
     let readme_data: string = fs.readFileSync(readme, 'utf8')
 
     let remote = await http_get(generate_status_url(playlist_url))
-    core.info(remote)
+    core.debug(remote)
     const remote_data = JSON.parse(remote)
     const playlists = remote_data.resources.playlists
     const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${get_id(playlist_url)}`, 'mList'))

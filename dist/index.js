@@ -50,9 +50,9 @@ function find_file(name) {
 }
 exports.find_file = find_file;
 function replaceTimes(orig, oldVal, newVal, times) {
-    let returnVal;
+    let returnVal = orig;
     for (let i = 0; i < times; i++) {
-        returnVal = orig.replace(oldVal, newVal);
+        returnVal = returnVal.replace(oldVal, newVal);
     }
     return returnVal;
 }
@@ -116,7 +116,7 @@ function run() {
         const readme = yield (0, file_helper_1.find_file)('README.md');
         let readme_data = fs.readFileSync(readme, 'utf8');
         let remote = yield (0, net_helper_1.http_get)((0, url_helper_1.generate_status_url)(playlist_url));
-        core.info(remote);
+        core.debug(remote);
         const remote_data = JSON.parse(remote);
         const playlists = remote_data.resources.playlists;
         const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${(0, url_helper_1.get_id)(playlist_url)}`, 'mList'));
@@ -196,13 +196,6 @@ function http_get(url) {
         };
         const res = yield client.get(url, headers);
         if (res.message.statusCode == 200) {
-            /*let r = res.message
-            let data = ''
-            r.on('data',(chunk:string):void => {
-                data+=chunk
-            })
-            r.on('end', ():void =>{})
-            return data*/
             return res.readBody();
         }
         else {
