@@ -115,7 +115,9 @@ function run() {
         }
         const readme = yield (0, file_helper_1.find_file)('README.md');
         let readme_data = fs.readFileSync(readme, 'utf8');
-        const remote_data = JSON.parse(yield (0, net_helper_1.http_get)((0, url_helper_1.generate_status_url)(playlist_url)));
+        let remote = yield (0, net_helper_1.http_get)((0, url_helper_1.generate_status_url)(playlist_url));
+        core.info(remote);
+        const remote_data = JSON.parse(remote);
         const playlists = remote_data.resources.playlists;
         const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${(0, url_helper_1.get_id)(playlist_url)}`, 'mList'));
         const orig_time = m_plists.mList.attributes.lastModifiedDate;

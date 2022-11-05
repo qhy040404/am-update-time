@@ -18,7 +18,9 @@ async function run() {
     const readme = await find_file('README.md')
     let readme_data:string = fs.readFileSync(readme,'utf8')
 
-    const remote_data = JSON.parse(await http_get(generate_status_url(playlist_url)))
+    let remote = await http_get(generate_status_url(playlist_url))
+    core.info(remote)
+    const remote_data = JSON.parse(remote)
     const playlists = remote_data.resources.playlists
     const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${get_id(playlist_url)}`, 'mList'))
     const orig_time:string = m_plists.mList.attributes.lastModifiedDate
