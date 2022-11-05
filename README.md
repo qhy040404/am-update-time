@@ -4,7 +4,7 @@
 
 Check [test.yml](.github/workflows/test.yml)
 
-## Test
+## Example
 
 [![am][am-logo]][am-url]
 > Last Update: 2022/11/03
