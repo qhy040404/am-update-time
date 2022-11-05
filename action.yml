@@ -3,6 +3,14 @@ description: "A GitHub action to update Apple Music last modified time in profil
 author: 'qhy040404'
 
 inputs:
+  token:
+    description: 'Push token'
+    required: false
+    default: $ {{ secrets.GITHUB_TOKEN }}
+  branch:
+    description: 'Target branch'
+    required: true
+    default: ''
   playlist:
     description: 'playlist url'
     required: true
