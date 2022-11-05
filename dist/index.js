@@ -43,7 +43,7 @@ exports.push = void 0;
 const exec = __importStar(__nccwpck_require__(1514));
 function push(token, branch) {
     return __awaiter(this, void 0, void 0, function* () {
-        yield exec.exec(`bash cd .. && git push https://${process.env.GITHUB_ACTOR}:${token}@${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}.git HEAD:${branch}`);
+        yield exec.exec(`git push https://${process.env.GITHUB_ACTOR}:${token}@${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}.git HEAD:${branch}`);
     });
 }
 exports.push = push;
