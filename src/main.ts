@@ -3,12 +3,9 @@ import * as fs from 'fs-extra'
 import {find_file, replaceTimes} from "./file-helper";
 import {http_get} from "./net-helper";
 import {generate_status_url, get_id} from "./url-helper";
-import {push} from "./exec-helper";
 
 async function run() {
     core.info('Importing inputs')
-    const token = core.getInput('token')
-    const branch = core.getInput('branch',{required:true})
     const playlist_url = core.getInput('playlist', {required: true})
     const delimiter = core.getInput('keyword', {required: true})
 
@@ -38,7 +35,6 @@ async function run() {
     try {
         fs.writeFileSync(readme, readme_data, 'utf8')
         core.info('Overwritten')
-        await push(token, branch)
     } catch (e) {
         core.error(`${e}`)
     }

@@ -10,8 +10,6 @@ jobs:
       - uses: actions/checkout@v3
       - uses: qhy040404/am-update-time@master
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ github.ref }}
           playlist: 'https://music.apple.com/cn/playlist/just-my-favorite/pl.u-8aAVZglHWya2xM'
           keyword: 'Last Update: '
       - run: |
