@@ -103,7 +103,6 @@ const core = __importStar(__nccwpck_require__(2186));
 const fs = __importStar(__nccwpck_require__(5630));
 const file_helper_1 = __nccwpck_require__(7148);
 const net_helper_1 = __nccwpck_require__(4930);
-const url_helper_1 = __nccwpck_require__(9437);
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
         core.info('Importing inputs');
@@ -115,12 +114,19 @@ function run() {
         }
         const readme = yield (0, file_helper_1.find_file)('README.md');
         let readme_data = fs.readFileSync(readme, 'utf8');
-        let remote = yield (0, net_helper_1.http_get)((0, url_helper_1.generate_status_url)(playlist_url));
+        // Apple API does not work at the moment
+        /*let remote = await http_get(generate_status_url(playlist_url))
+        core.debug(remote)
+        const remote_data = JSON.parse(remote)
+        const playlists = remote_data.resources.playlists
+        const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${get_id(playlist_url)}`, 'mList'))
+        const orig_time: string = m_plists.mList.attributes.lastModifiedDate
+        core.info(`Original time from remote: ${orig_time}`)
+        const time = replaceTimes(orig_time.split("T")[0], "-", "/", 2)
+        core.info(`Remote time: ${time}`)*/
+        let remote = yield (0, net_helper_1.normal_get)(playlist_url);
         core.debug(remote);
-        const remote_data = JSON.parse(remote);
-        const playlists = remote_data.resources.playlists;
-        const m_plists = JSON.parse(JSON.stringify(playlists).replace(`${(0, url_helper_1.get_id)(playlist_url)}`, 'mList'));
-        const orig_time = m_plists.mList.attributes.lastModifiedDate;
+        const orig_time = remote.split('"datePublished":"')[1].split('",')[0];
         core.info(`Original time from remote: ${orig_time}`);
         const time = (0, file_helper_1.replaceTimes)(orig_time.split("T")[0], "-", "/", 2);
         core.info(`Remote time: ${time}`);
@@ -180,10 +186,28 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.http_get = void 0;
+exports.http_get = exports.normal_get = void 0;
 const http = __importStar(__nccwpck_require__(6255));
 const core = __importStar(__nccwpck_require__(2186));
 const client = new http.HttpClient('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36');
+function normal_get(url) {
+    return __awaiter(this, void 0, void 0, function* () {
+        const headers = {
+            ['accept']: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+            ['cookie']: 'geo=CN'
+        };
+        const res = yield client.get(url, headers);
+        if (res.message.statusCode == 200) {
+            return res.readBody();
+        }
+        else {
+            core.debug(yield res.readBody());
+            core.setFailed("Didn't get a 200 status code");
+            return '{}';
+        }
+    });
+}
+exports.normal_get = normal_get;
 function http_get(url) {
     return __awaiter(this, void 0, void 0, function* () {
         const headers = {
@@ -206,26 +230,6 @@ function http_get(url) {
     });
 }
 exports.http_get = http_get;
-
-
-/***/ }),
-
-/***/ 9437:
-/***/ ((__unused_webpack_module, exports) => {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", ({ value: true }));
-exports.generate_status_url = exports.get_id = void 0;
-function get_id(orig) {
-    const splits = orig.split("/");
-    return splits[splits.length - 1];
-}
-exports.get_id = get_id;
-function generate_status_url(url) {
-    return `https://amp-api.music.apple.com/v1/catalog/cn/playlists/${get_id(url)}?art[url]=f&extend=editorialArtwork,editorialVideo,offers,trackCount&fields[albums]=name,artwork,playParams&fields[apple-curators]=name,url&fields[artists]=name,artwork&fields[curators]=name,url&fields[songs]=name,artistName,curatorName,composerName,artwork,playParams,contentRating,albumName,url,durationInMillis,audioTraits,extendedAssetUrls&format[resources]=map&include=tracks,curator&include[music-videos]=artists&include[songs]=artists&l=zh-Hans-CN&limit[tracks]=300&limit[view.contributors]=15&limit[view.featured-artists]=15&limit[view.more-by-curator]=15&omit[resource]=autos&platform=web&views=contributors,featured-artists,more-by-curator`;
-}
-exports.generate_status_url = generate_status_url;
 
 
 /***/ }),

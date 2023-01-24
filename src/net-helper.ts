@@ -3,6 +3,25 @@ import * as core from '@actions/core'
 
 const client = new http.HttpClient('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/106.0.0.0 Safari/537.36')
 
+export async function normal_get(url:string):Promise<string> {
+    const headers = {
+        ['accept']: 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+        ['cookie']: 'geo=CN'
+    }
+
+    const res = await client.get(
+        url,
+        headers
+    )
+    if (res.message.statusCode == 200) {
+        return res.readBody()
+    } else {
+        core.debug(await res.readBody())
+        core.setFailed("Didn't get a 200 status code")
+        return '{}'
+    }
+}
+
 export async function http_get(url: string): Promise<string> {
     const headers = {
         ['accept']: '*/*',
