@@ -1,7 +1,7 @@
 {
   "name": "am-update-time",
   "description": "A GitHub action to update Apple Music last modified time in profile",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": {
     "type": "git,",
     "url": "git+https://github.com/qhy040404/am-update-time.git"
