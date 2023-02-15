@@ -16,6 +16,7 @@ async function run() {
     }
 
     const readme = await find_file('README.md')
+    core.debug(readme)
     let readme_data: string = fs.readFileSync(readme, 'utf8')
 
     // Apple API does not work at the moment
