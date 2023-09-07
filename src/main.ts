@@ -1,8 +1,7 @@
 import * as core from "@actions/core"
 import * as fs from 'fs-extra'
 import {find_file, replaceTimes} from "./file-helper";
-import {http_get, normal_get} from "./net-helper";
-import {generate_status_url, get_id} from "./url-helper";
+import {normal_get} from "./net-helper";
 
 async function run() {
     core.info('Importing inputs')
@@ -32,7 +31,7 @@ async function run() {
 
     let remote = await normal_get(playlist_url)
     core.debug(remote)
-    const orig_time:string = remote.split('"datePublished":"')[1].split('",')[0]
+    const orig_time: string = remote.split('"datePublished":"')[1].split('",')[0]
     core.info(`Original time from remote: ${orig_time}`)
     const time = replaceTimes(orig_time.split("T")[0], "-", "/", 2)
     core.info(`Remote time: ${time}`)
