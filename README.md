@@ -1,5 +1,9 @@
 # am-update-time
 
+## Deprecated
+
+Apple Music no more returns date.
+
 ## Usage
 
 Check [test.yml](.github/workflows/test.yml)
